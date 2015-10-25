@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ManualInterface.cs" />
-    <Compile Include="Program.cs">
+    <Compile Include="FirecrackerSerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ManualInterface.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
