@@ -4,10 +4,24 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnmanagedPorts;
+
+//cboBaudRate.Items.Add(300);
+//cboBaudRate.Items.Add(600);
+//cboBaudRate.Items.Add(1200);
+//cboBaudRate.Items.Add(2400);
+//cboBaudRate.Items.Add(9600);
+//cboBaudRate.Items.Add(14400);
+//cboBaudRate.Items.Add(19200);
+//cboBaudRate.Items.Add(38400);
+//cboBaudRate.Items.Add(57600);
+//cboBaudRate.Items.Add(115200);
+
+//REFERENCE: http://www.linuxha.com/common/cm17a.html
 
 namespace firecracker
 {
-    class FirecrackerSerialPort : SerialPort
+    class FirecrackerSerialPort : UnmanagedSerialPort //SerialPort
     {
         public FirecrackerSerialPort(string Port)
             : base(Port)
@@ -33,11 +47,15 @@ namespace firecracker
 
         private void Reset()
         {
-            DtrEnable = false;
-            RtsEnable = false;
+            //DtrEnable = false;
+            DtrOff();
+            //RtsEnable = false;
+            RtsOff();
 
-            DtrEnable = true;
-            RtsEnable = true;
+            //DtrEnable = true;
+            DtrOn();
+            //RtsEnable = true;
+            RtsOn();
         }
 
         private void SendHeader()
@@ -51,32 +69,36 @@ namespace firecracker
             for (int i = 8; i > 0; i--)
             {
                 var bit = (b & (1 << i - 1)) != 0;
-                Console.Write(bit ? 1 : 0);
+                //Console.Write(bit ? 1 : 0);
 
                 if (bit)
                     Send1Bit();
                 else
                     Send0Bit();
             }
-            Console.Write(' ');
+            //Console.Write(' ');
         }
 
         private void Send0Bit()
         {
-            if (!this.DtrEnable)
-                Console.WriteLine("oh no, dtr is low");
+            //if (!this.DtrEnable)
+                //Console.WriteLine("oh no, dtr is low");
 
-            RtsEnable = false;
-            RtsEnable = true;
+            //RtsEnable = false;
+            RtsOff();
+            //RtsEnable = true;
+            RtsOn();
         }
 
         private void Send1Bit()
         {
-            if (!this.RtsEnable)
-                Console.WriteLine("oh no, rts is low");
+            //if (!this.RtsEnable)
+                //Console.WriteLine("oh no, rts is low");
 
-            DtrEnable = false;
-            DtrEnable = true;
+            //DtrEnable = false;
+            DtrOff();
+            //DtrEnable = true;
+            DtrOn(); 
         }
 
         private void SendFooter()

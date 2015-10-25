@@ -6,19 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using firecracker;
 
-//cboBaudRate.Items.Add(300);
-//cboBaudRate.Items.Add(600);
-//cboBaudRate.Items.Add(1200);
-//cboBaudRate.Items.Add(2400);
-//cboBaudRate.Items.Add(9600);
-//cboBaudRate.Items.Add(14400);
-//cboBaudRate.Items.Add(19200);
-//cboBaudRate.Items.Add(38400);
-//cboBaudRate.Items.Add(57600);
-//cboBaudRate.Items.Add(115200);
-
-//REFERENCE: http://www.linuxha.com/common/cm17a.html
-
 namespace firecracker
 {
     class Program
@@ -58,6 +45,7 @@ namespace firecracker
             fc.Initialize();
             fc.SendCommand(houseId, moduleNumber, moduleState);
             System.Threading.Thread.Sleep(1000);
+            //Console.ReadKey();
             fc.Close();
         }
     }
